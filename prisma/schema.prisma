@@ -1,0 +1,51 @@
+datasource db {
+  provider = "sqlite" // Gunakan SQLite untuk pengembangan
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid()) // ID unik berbasis cuid
+  name      String
+  email     String   @unique
+  password  String
+  role      String   // Role: 'admin' atau 'member'
+  createdAt DateTime @default(now()) // Waktu pembuatan otomatis
+
+  bookings  Booking[] // Relasi ke Booking
+}
+
+model TourPackage {
+  id          String   @id @default(cuid()) // ID unik berbasis cuid
+  name        String
+  description String
+  price       Float    // Harga paket
+  createdAt   DateTime @default(now()) // Waktu pembuatan otomatis
+
+  bookings    Booking[] // Relasi ke Booking
+}
+
+model Problem {
+  id          String   @id @default(cuid()) // ID unik berbasis cuid
+  name        String
+  description String
+  price       Float?   // Harga opsional jika ada
+  createdAt   DateTime @default(now()) // Waktu pembuatan otomatis
+
+  bookings    Booking[] // Relasi ke Booking
+}
+
+model Booking {
+  id            String   @id @default(cuid()) // ID unik berbasis cuid
+  userId        String   // ID pengguna
+  user          User     @relation(fields: [userId], references: [id]) // Relasi ke User
+  tourPackageId String   // ID paket wisata
+  tourPackage   TourPackage @relation(fields: [tourPackageId], references: [id]) // Relasi ke TourPackage
+  problemId     String?  // ID masalah (opsional)
+  problem       Problem? @relation(fields: [problemId], references: [id]) // Relasi ke Problem
+  status        String   // Status: 'pending', 'confirmed', atau 'cancelled'
+  createdAt     DateTime @default(now()) // Waktu pembuatan otomatis
+}
