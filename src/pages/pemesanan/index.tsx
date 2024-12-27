@@ -9,12 +9,22 @@ const wisataList = [
   {
     title: "Air Terjun Sirah Kencong",
     description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
-    image: "/images/air_terjun.jpg",
+    image: "/images/air_terjun.jpeg",
   },
   {
     title: "Wukir Negoro",
     description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
     image: "/images/wukir.jpg",
+  },
+  {
+    title: "Villa",
+    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
+    image: "/images/Villa.jpg",
+  },
+  {
+    title: "Glamping",
+    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
+    image: "/images/glamping.jpg",
   },
   {
     title: "Wahana Permainan Sirah Kencong",
@@ -26,17 +36,17 @@ const wisataList = [
 const paketWisata = [
   {
     name: "Paket A",
-    price: "100.000",
+    price: "150.000",
     includes: ["Candi Sirah Kencong", "Air Terjun Sirah Kencong"],
   },
   {
     name: "Paket B",
-    price: "150.000",
+    price: "200.000",
     includes: ["Wukir Negoro", "Wahana Permainan Sirah Kencong"],
   },
   {
     name: "Paket D",
-    price: "250.000",
+    price: "1.250.000",
     includes: [
       "Menginap di vila dengan pemandangan perkebunan teh",
       "Wisata ke Candi Sirah Kencong",
@@ -46,7 +56,7 @@ const paketWisata = [
   },
   {
     name: "Paket E",
-    price: "350.000",
+    price: "1.350.000",
     includes: [
       "Menginap di area glamping",
       "Trekking menuju puncak Gunung Butak",
@@ -56,7 +66,7 @@ const paketWisata = [
   },
   {
     name: "Paket F",
-    price: "500.000",
+    price: "2.500.000",
     includes: [
       "Kombinasi vila dan glamping (1 malam di vila, 1 malam di glamping)",
       "Trekking ke puncak Gunung Butak",
