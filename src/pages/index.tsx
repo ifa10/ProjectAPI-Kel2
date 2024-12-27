@@ -10,12 +10,22 @@ const wisataList = [
   {
     title: "Air Terjun Sirah Kencong",
     description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
-    image: "/images/air_terjun.jpg",
+    image: "/images/air_terjun.jpeg",
   },
   {
     title: "Wukir Negoro",
     description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
     image: "/images/wukir.jpg",
+  },
+  {
+    title: "Villa",
+    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
+    image: "/images/Villa.jpg",
+  },
+  {
+    title: "Glamping",
+    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
+    image: "/images/glamping.jpg",
   },
   {
     title: "Wahana Permainan Sirah Kencong",
