@@ -1,5 +1,5 @@
-# NextJS - Pemrograman API UNISBA BLITAR
+# NextJS - Pemrograman API - KELOMPOK 2
 
-#### Database & Firebase Config
+#### Project Pembuatan Website 
 
 Firebase: [firebase](https://console.firebase.google.com/u/0)
