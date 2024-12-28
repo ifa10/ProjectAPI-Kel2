@@ -9,7 +9,7 @@ generator client {
 
 model User {
   id        String   @id @default(cuid()) // ID unik berbasis cuid
-  name      String
+  name      String?
   email     String   @unique
   password  String
   role      String   // Role: 'admin' atau 'member'
@@ -39,13 +39,15 @@ model Problem {
 }
 
 model Booking {
-  id            String   @id @default(cuid()) // ID unik berbasis cuid
-  userId        String   // ID pengguna
-  user          User     @relation(fields: [userId], references: [id]) // Relasi ke User
-  tourPackageId String   // ID paket wisata
-  tourPackage   TourPackage @relation(fields: [tourPackageId], references: [id]) // Relasi ke TourPackage
-  problemId     String?  // ID masalah (opsional)
-  problem       Problem? @relation(fields: [problemId], references: [id]) // Relasi ke Problem
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  tourPackageId String
+  tourPackage   TourPackage @relation(fields: [tourPackageId], references: [id])
+  problemId     String?
+  problem       Problem? @relation(fields: [problemId], references: [id])
   status        String   // Status: 'pending', 'confirmed', atau 'cancelled'
-  createdAt     DateTime @default(now()) // Waktu pembuatan otomatis
+  createdAt     DateTime @default(now())
+  paymentStatus String
 }
+

@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (req.method === 'GET') {
       // Mendapatkan daftar pemesanan berdasarkan user
-      const bookings = await prisma.Booking.findMany({
+      const bookings = await prisma.booking.findMany({
         where: { userId: user.id },
         include: {
           tourPackage: true, // Pastikan model "tourPackage" ada di schema
@@ -40,11 +40,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Buat pemesanan baru
-      const booking = await prisma.Booking.create({
+      const booking = await prisma.booking.create({
         data: {
           userId: user.id,
           tourPackageId,
           paymentStatus,
+          status: 'pending', // Tambahkan properti status dengan nilai default
         },
         include: {
           tourPackage: true, // Termasuk detail tourPackage jika diperlukan

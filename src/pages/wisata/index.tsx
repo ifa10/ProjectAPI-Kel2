@@ -3,25 +3,36 @@ import React, { useState } from "react";
 const wisataList = [
   {
     title: "Candi Sirah Kencong",
-    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
+    description: "Temukan ketenangan di tengah jejak sejarah Hindu kuno di Candi Sirah Kencong. Bangunan megah yang berdiri kokoh di tengah alam pegunungan ini memancarkan pesona masa lalu yang berpadu harmonis dengan panorama alam hijau. Tempat ini adalah surga bagi pencinta budaya, sejarah, dan keindahan alam.",
     image: "/images/candi.jpg",
   },
   {
     title: "Air Terjun Sirah Kencong",
-    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
-    image: "/images/air_terjun.jpg",
+    description: "Rasakan petualangan menyegarkan menuju Air Terjun Sirah Kencong. Dengan trekking ringan sejauh 700 meter, Anda akan disambut oleh gemericik air yang jatuh dari ketinggian 10 meter, memecah keheningan alam. Nikmati sejuknya udara pegunungan dan kejernihan air yang menenangkan jiwa.",
+    image: "/images/air_terjun.jpeg",
   },
   {
     title: "Wukir Negoro",
-    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
+    description: "Nikmati panorama spektakuler di ketinggian 2.300 mdpl di Wukir Negoro. Lanskap kebun teh yang memukau dan udara segar pegunungan menjadikan tempat ini sempurna untuk menyaksikan keajaiban matahari terbit. Ideal bagi mereka yang mencari harmoni alam dan ketenangan jiwa.",
     image: "/images/wukir.jpg",
   },
   {
+    title: "Villa",
+    description: "Rasakan kenyamanan seperti di rumah sendiri di villa Sirah Kencong. Dengan desain elegan, fasilitas modern, dan suasana yang tenang, villa ini menawarkan pengalaman menginap yang menyegarkan, dikelilingi oleh keindahan pegunungan.",
+    image: "/images/Villa.jpg",
+  },
+  {
+    title: "Glamping",
+    description: "Ciptakan kenangan tak terlupakan dengan glamping di Sirah Kencong. Nikmati kenyamanan tempat tidur empuk dan fasilitas modern, semuanya di tengah keindahan alam terbuka. Glamping di sini adalah perpaduan sempurna antara petualangan dan kemewahan.",
+    image: "/images/glamping.jpg",
+  },
+  {
     title: "Wahana Permainan Sirah Kencong",
-    description: "Desa Sirah Kencong, Kecamatan Wlingi, Kabupaten Blitar, Jawa Timur",
+    description: "Siap untuk keseruan tak terlupakan? Sirah Kencong menghadirkan wahana unik seperti Keranjang Sultan untuk foto-foto estetik, flying fox yang memacu adrenalin, hingga ATV untuk eksplorasi penuh gaya. Petualangan seru menanti Anda di sini!",
     image: "/images/wahana.jpg",
   },
 ];
+
 
 export const Wisata: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -45,7 +56,7 @@ export const Wisata: React.FC = () => {
         <h1
           style={{
             textAlign: "center",
-            fontSize: "2rem",
+            fontSize: "6rem",
             marginBottom: "20px",
             color: "#333",
           }}
