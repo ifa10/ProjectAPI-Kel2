@@ -58,3 +58,18 @@ model Booking {
   createdAt     DateTime @default(now())
   paymentStatus String
 }
+
+model Member {
+  id        Int      @id @default(autoincrement()) // ID unik berbasis autoincrement
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now()) // Waktu pembuatan otomatis
+}
+model Pemesanan {
+  id         Int      @id @default(autoincrement())
+  wisataId   Int
+  userId     Int
+  totalPrice Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
