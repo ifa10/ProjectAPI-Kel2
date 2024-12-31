@@ -1,7 +1,7 @@
-// pages/index.tsx
+// Login.tsx
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import "@/styles/loginAdmin.module.css";
+import styles from '@/styles/loginAdmin.module.css'; // Import styles module
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -17,29 +17,38 @@ const Login = () => {
 
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem('token', data.token); // Simpan token di localStorage
-      router.push('/dashboard'); // Arahkan ke dashboard
+      localStorage.setItem('token', data.token);
+      router.push('/dashboard');
     } else {
       alert('Invalid credentials');
     }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+    <div className={styles['login-container']}>
+      <div className={styles['login-form']}>
+        <h1 className={styles['login-title']}>Login Admin</h1>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className={styles['input-field']}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles['input-field']}
+        />
+        <button onClick={handleLogin} className={styles['login-btn']}>
+          Login
+        </button>
+        <p className={styles['forgot-password']}>
+          Forgot your password? <a href="/reset-password">Reset it here</a>
+        </p>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,96 @@
+/* loginAdmin.module.css */
+.body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Pastikan tinggi halaman memenuhi layar */
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    padding: 0 20px; /* Padding horizontal */
+  }
+  
+  .login-form {
+    background-color: rgb(199, 218, 196);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px; /* Membatasi lebar form supaya tidak terlalu besar */
+    text-align: center;
+  }
+  
+  .login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    margin: 10px 0;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-field:focus {
+    border-color: #0a270a;
+    outline: none;
+    box-shadow: 0 0 8px rgba(60, 221, 60, 0.5);
+  }
+  
+  .login-btn {
+    background-color: #3cdd3c;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-btn:hover {
+    background-color: #3cdd3c;
+  }
+  
+  .forgot-password {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  .forgot-password a {
+    color: #3cdd3c;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  .google-login-btn {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .google-login-btn:hover {
+    background-color: #357ae8;
+  }
+  

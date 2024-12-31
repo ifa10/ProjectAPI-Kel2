@@ -1,78 +1,65 @@
-import { useState } from "react";
-import Welcome from "./welcome"; // Import the Welcome component
-import $ from "jquery";
+// LoginMember.tsx
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+import styles from '@/styles/loginMember.module.css'; // Import styles module
 
-function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const LoginMember = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async () => {
+    const response = await fetch('/api/member-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
 
-    try {
-      // Simulate the login process with fetch or Axios
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Invalid login credentials");
-      }
-
+    if (response.ok) {
       const data = await response.json();
-      // Corrected alert with proper syntax
-      alert(`Welcome, ${data.user.name}!`); // Display the name from the data
-
-      // You can also use jQuery if you need it, but it's not necessary in this case
-      // Example of using jQuery: $('#someElement').text(data.user.name);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
+      localStorage.setItem('token', data.token);
+      router.push('/member-dashboard');
+    } else {
+      alert('Invalid credentials');
     }
   };
 
+  const handleGoogleLogin = async () => {
+    signIn('google', { callbackUrl: '/member-dashboard' });
+  };
+
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "0 auto",
-        padding: "20px",
-        textAlign: "center",
-      }}
-    >
-      <h1>Login Member</h1>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-      >
+    <div className={styles['login-container']}>
+      <div className={styles['login-form']}>
+        <h1 className={styles['login-title']}>Login Member</h1>
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ padding: "10px", fontSize: "16px" }}
-          required
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className={styles['input-field']}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ padding: "10px", fontSize: "16px" }}
-          required
+          className={styles['input-field']}
         />
-        <button
-          type="submit"
-          style={{ padding: "10px", fontSize: "16px", cursor: "pointer" }}
-        >
+        <button onClick={handleLogin} className={styles['login-btn']}>
           Login
         </button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        <p className={styles['forgot-password']}>
+          Forgot your password? <a href="/reset-password">Reset it here</a>
+        </p>
+        <hr className={styles['divider']} />
+        <button onClick={handleGoogleLogin} className={styles['google-login-btn']}>
+          Login with Google
+        </button>
+      </div>
     </div>
   );
-}
+};
 
-export default LoginPage; // Export LoginPage, not Welcome
+export default LoginMember;

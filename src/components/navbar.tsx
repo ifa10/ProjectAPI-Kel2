@@ -1,6 +1,12 @@
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Import untuk menangani gambar
+import Image from "next/image";
+
+// Dummy function untuk cek login status (ganti dengan implementasi sebenarnya)
+const isLoggedInAsMember = () => {
+  // Ganti ini dengan logika auth sebenarnya
+  return typeof window !== "undefined" && localStorage.getItem("userRole") === "member";
+};
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +59,7 @@ const Navbar: React.FC = () => {
         top: 0,
         left: 0,
         zIndex: 100,
-        height: "70px", // Tinggi navbar
+        height: "70px",
       }}
     >
       {/* Logo dan Tulisan Sirah Kencong */}
@@ -64,11 +70,11 @@ const Navbar: React.FC = () => {
         }}
       >
         <Image
-          src="/images/logo.png" // Path ke logo
+          src="/images/logo.png"
           alt="Logo Sirah Kencong"
-          width={60} // Lebar logo lebih besar
-          height={60} // Tinggi logo lebih besar
-          priority // Properti Next.js untuk memberi prioritas pada gambar
+          width={60}
+          height={60}
+          priority
         />
         <span
           style={{
@@ -93,13 +99,15 @@ const Navbar: React.FC = () => {
         }}
         className="navbar-menu"
       >
-        {[{ href: "/", label: "Home" }, { href: "/wisata", label: "Wisata" }, { href: "/pemesanan", label: "Pemesanan" }].map(({ href, label }) => (
-          <li key={href}>
-            <Link href={href} legacyBehavior>
-              <a style={linkStyle}>{label}</a>
-            </Link>
-          </li>
-        ))}
+        {[{ href: "/", label: "Home" }, { href: "/wisata", label: "Wisata" }]
+          .concat(isLoggedInAsMember() ? [{ href: "/pemesanan", label: "Pemesanan" }] : [])
+          .map(({ href, label }) => (
+            <li key={href}>
+              <Link href={href} legacyBehavior>
+                <a style={linkStyle}>{label}</a>
+              </Link>
+            </li>
+          ))}
         <li style={{ position: "relative" }}>
           <button
             style={{

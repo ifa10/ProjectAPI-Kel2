@@ -38,6 +38,14 @@ model Problem {
   bookings    Booking[] // Relasi ke Booking
 }
 
+model Wisata {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  idMember    Int
+}
+
 model Booking {
   id            String   @id @default(cuid())
   userId        String
@@ -50,4 +58,3 @@ model Booking {
   createdAt     DateTime @default(now())
   paymentStatus String
 }
-
