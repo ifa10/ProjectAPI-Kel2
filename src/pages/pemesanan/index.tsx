@@ -85,7 +85,7 @@ const Wisata = () => {
   };
 
   const handlePesan = (paket) => {
-    const paymentUrl = "https://app.sandbox.midtrans.com/payment-links/1735738249659";
+    const paymentUrl = "https://app.sandbox.midtrans.com/payment-links/1735740256410";
     window.location.href = paymentUrl;
   };
 
