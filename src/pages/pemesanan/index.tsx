@@ -76,57 +76,37 @@ const paketWisata = [
   },
 ];
 
-export const Wisata: React.FC = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [selectedPaketIndex, setSelectedPaketIndex] = useState<number | null>(
-    null
-  );
+const Wisata = () => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [selectedPaketIndex, setSelectedPaketIndex] = useState(null);
 
-  const handlePaketSelect = (index: number) => {
+  const handlePaketSelect = (index) => {
     setSelectedPaketIndex(index);
+  };
+
+  const handlePesan = (paket) => {
+    const paymentUrl = "https://app.sandbox.midtrans.com/payment-links/1735738249659";
+    window.location.href = paymentUrl;
   };
 
   const filteredWisataList =
     selectedPaketIndex !== null
       ? wisataList.filter((wisata) =>
-          paketWisata[selectedPaketIndex].includes.includes(wisata.title)
+          paketWisata[selectedPaketIndex]?.includes?.includes(wisata.title)
         )
       : wisataList;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <main style={{ flex: 1, padding: "20px", backgroundColor: "#f8f9fa" }}>
-        {/* Header */}
-        <h1
-          style={{
-            textAlign: "center",
-            fontSize: "2rem",
-            marginBottom: "20px",
-            color: "#333",
-          }}
-        >
+        <h1 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "20px", color: "#333" }}>
           Pilihan Wisata
         </h1>
-        <p
-          style={{
-            textAlign: "center",
-            fontSize: "1rem",
-            color: "#555",
-            marginBottom: "30px",
-          }}
-        >
+        <p style={{ textAlign: "center", fontSize: "1rem", color: "#555", marginBottom: "30px" }}>
           Berikut adalah pilihan paket wisata menarik di kawasan Sirah Kencong yang dapat Anda kunjungi.
         </p>
 
-        {/* Paket Wisata */}
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "1.5rem",
-            marginBottom: "20px",
-            color: "#333",
-          }}
-        >
+        <h2 style={{ textAlign: "center", fontSize: "1.5rem", marginBottom: "20px", color: "#333" }}>
           Paket Wisata
         </h2>
         <div
@@ -157,45 +137,42 @@ export const Wisata: React.FC = () => {
                 cursor: "pointer",
               }}
             >
-              <h3
-                style={{
-                  fontSize: "1.25rem",
-                  color: "#00796b",
-                  marginBottom: "10px",
-                }}
-              >
+              <h3 style={{ fontSize: "1.25rem", color: "#00796b", marginBottom: "10px" }}>
                 {paket.name}
               </h3>
               <p style={{ fontSize: "1rem", color: "#555", marginBottom: "10px" }}>
                 Harga: Rp {paket.price}
               </p>
               <p style={{ fontSize: "1rem", color: "#555" }}>Termasuk:</p>
-              <ul
-                style={{
-                  listStyleType: "circle",
-                  padding: "0 20px",
-                  textAlign: "left",
-                }}
-              >
+              <ul style={{ listStyleType: "circle", padding: "0 20px", textAlign: "left" }}>
                 {paket.includes.map((item, idx) => (
                   <li key={idx} style={{ fontSize: "1rem", color: "#555" }}>
                     {item}
                   </li>
                 ))}
               </ul>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePesan(paket);
+                }}
+                style={{
+                  backgroundColor: "#00796b",
+                  color: "#fff",
+                  padding: "10px 20px",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  marginTop: "10px",
+                }}
+              >
+                Pesan Sekarang
+              </button>
             </div>
           ))}
         </div>
 
-        {/* Grid List */}
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "1.5rem",
-            marginBottom: "20px",
-            color: "#333",
-          }}
-        >
+        <h2 style={{ textAlign: "center", fontSize: "1.5rem", marginBottom: "20px", color: "#333" }}>
           Destinasi Wisata
         </h2>
         <div
