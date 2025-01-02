@@ -14,3 +14,9 @@ Terima kasih kepada seluruh kontributor dan anggota Kelompok 2, atas
 kerja keras, dan kolaborasi luar biasa dalam menyelesaikan proyek website ini.
 Keberhasilan ini adalah hasil dari upaya bersama!🙏
 Goodbye, Semester 5! 🎓
+- @nimas123
+- @Racheliam5
+- @Jonathansetya
+- @Fianacantik
+- @uhanik148
+- @ifa10
