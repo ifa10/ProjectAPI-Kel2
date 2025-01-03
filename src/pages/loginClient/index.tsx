@@ -20,7 +20,7 @@ const LoginMember = () => {
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem('token', data.token);
-      router.push('/dashboard-member');
+      router.push('/member-dashboard');
     } else {
       alert('Invalid credentials');
     }
@@ -47,7 +47,7 @@ const LoginMember = () => {
   };
 
   const handleGoogleLogin = async () => {
-    signIn('google', { callbackUrl: '/dashboard-member' });
+    signIn('google', { callbackUrl: '/member-dashboard' });
   };
 
   return (
