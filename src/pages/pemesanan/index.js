@@ -33,18 +33,21 @@ const wisataList = [
   },
 ];
 
-const paketWisata = [
+export const paketWisata = [
   {
+    id:1,
     name: "Paket A",
     price: "150.000",
     includes: ["Candi Sirah Kencong", "Air Terjun Sirah Kencong"],
   },
   {
+    id:2,
     name: "Paket B",
     price: "200.000",
     includes: ["Wukir Negoro", "Wahana Permainan Sirah Kencong"],
   },
   {
+    id:3,
     name: "Paket D",
     price: "1.250.000",
     includes: [
@@ -55,6 +58,7 @@ const paketWisata = [
     ],
   },
   {
+    id:4,
     name: "Paket E",
     price: "1.350.000",
     includes: [
@@ -65,6 +69,7 @@ const paketWisata = [
     ],
   },
   {
+    id:5,
     name: "Paket F",
     price: "2.500.000",
     includes: [
