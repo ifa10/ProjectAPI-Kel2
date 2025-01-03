@@ -1,212 +1,131 @@
-import React, { useState } from "react";
-import styles from '@/styles/dashboard.module.css';
-
-// Helper function for consistent number formatting
-const formatPrice = (price: number): string => {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-};
+import React, { useState, useEffect } from "react";
+import styles from "@/styles/dashboard.module.css";
+import { paketWisata } from "@/pages/pemesanan/index";
 
 interface Wisata {
   id: number;
-  title: string;
+  name: string;
   description: string;
-  image: string;
-  idWisata: number;
+  price: string;
 }
-
-interface FormData {
-  title: string;
-  description: string;
-  image: string;
-  idWisata: string;
-}
-
-const initialWisataList: Wisata[] = [
-  {
-    id: 1,
-    title: "Candi Sirah Kencong",
-    description: "Temukan ketenangan di tengah jejak sejarah Hindu kuno di Candi Sirah Kencong. Bangunan megah yang berdiri kokoh di tengah alam pegunungan ini memancarkan pesona masa lalu yang berpadu harmonis dengan panorama alam hijau.",
-    image: "/images/candi.jpg",
-    idWisata: 1
-  },
-  {
-    id: 2,
-    title: "Air Terjun Sirah Kencong",
-    description: "Rasakan petualangan menyegarkan menuju Air Terjun Sirah Kencong. Dengan trekking ringan sejauh 700 meter, Anda akan disambut oleh gemericik air yang jatuh dari ketinggian 10 meter.",
-    image: "/images/air_terjun.jpeg",
-    idWisata: 2
-  },
-  {
-    id: 3,
-    title: "Wukir Negoro",
-    description: "Nikmati panorama spektakuler di ketinggian 2.300 mdpl di Wukir Negoro. Lanskap kebun teh yang memukau dan udara segar pegunungan menjadikan tempat ini sempurna untuk menyaksikan keajaiban matahari terbit. Ideal bagi mereka yang mencari harmoni alam dan ketenangan jiwa.",
-    image: "/images/wukir.jpg",
-    idWisata: 3
-  },
-  {
-    id: 4,
-    title: "Villa",
-    description: "Rasakan kenyamanan seperti di rumah sendiri di villa Sirah Kencong. Dengan desain elegan, fasilitas modern, dan suasana yang tenang, villa ini menawarkan pengalaman menginap yang menyegarkan, dikelilingi oleh keindahan pegunungan.",
-    image: "/images/Villa.jpg",
-    idWisata: 4
-  },
-  {
-    id: 5,
-    title: "Glamping",
-    description: "Ciptakan kenangan tak terlupakan dengan glamping di Sirah Kencong. Nikmati kenyamanan tempat tidur empuk dan fasilitas modern, semuanya di tengah keindahan alam terbuka. Glamping di sini adalah perpaduan sempurna antara petualangan dan kemewahan.",
-    image: "/images/glamping.jpg",
-    idWisata: 5
-  },
-  {
-    id: 6,
-    title: "Wahana Permainan Sirah Kencong",
-    description: "Siap untuk keseruan tak terlupakan? Sirah Kencong menghadirkan wahana unik seperti Keranjang Sultan untuk foto-foto estetik, flying fox yang memacu adrenalin, hingga ATV untuk eksplorasi penuh gaya. Petualangan seru menanti Anda di sini!",
-    image: "/images/wahana.jpg",
-    idWisata: 6
-  },
-];
 
 const Dashboard: React.FC = () => {
-  const [wisataList, setWisataList] = useState<Wisata[]>(initialWisataList);
-  const [formData, setFormData] = useState<FormData>({
-    title: "",
-    description: "",
-    image: "",
-    idWisata: ""
-  });
+  const [wisataList, setWisataList] = useState<Wisata[]>(paketWisata.map((paket, index) => ({
+    id: index + 1,
+    name: paket.name,
+    description: paket.includes.join(", "), // joining the includes array into a string
+    price: paket.price,
+  })));  // Menggunakan data dari wisataData
+  const [formData, setFormData] = useState({ name: "", description: "", price: "" });
   const [notification, setNotification] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fungsi fetchWisata dapat diubah jika Anda mengambil data dari API atau state lokal
+  useEffect(() => {
+    // Di sini Anda dapat menggunakan fetch untuk mengambil data dari API, jika ada
+    // Misalnya fetchWisata();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddWisata = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newWisata: Wisata = {
-      id: wisataList.length + 1,
-      title: formData.title,
-      description: formData.description,
-      image: formData.image,
-      idWisata: parseInt(formData.idWisata)
-    };
-    setWisataList([...wisataList, newWisata]);
-    setNotification(`Wisata "${newWisata.title}" berhasil ditambahkan!`);
-    setFormData({
-      title: "",
-      description: "",
-      image: "",
-      idWisata: ""
-    });
 
-    // Hapus notifikasi setelah 3 detik
+    if (!formData.name || !formData.description || !formData.price) {
+      setNotification("Harap isi semua field.");
+      setTimeout(() => setNotification(null), 3000);
+      return;
+    }
+
+    if (isNaN(parseFloat(formData.price))) {
+      setNotification("Harga harus berupa angka.");
+      setTimeout(() => setNotification(null), 3000);
+      return;
+    }
+
+    // Anda dapat menambahkan wisata baru ke wisataList
+    const newWisata = {
+      id: wisataList.length + 1,
+      name: formData.name,
+      description: formData.description,
+      price: formData.price,
+    };
+
+    setWisataList([...wisataList, newWisata]);
+    setNotification("Wisata berhasil ditambahkan!");
+    setFormData({ name: "", description: "", price: "" });
+
     setTimeout(() => setNotification(null), 3000);
   };
 
-  const handleDelete = (id: number) => {
-    const deletedWisata = wisataList.find(wisata => wisata.id === id);
+  const handleDeleteWisata = (id: number) => {
     setWisataList(wisataList.filter(wisata => wisata.id !== id));
-    setNotification(`Wisata "${deletedWisata?.title}" berhasil dihapus!`);
-
-    // Hapus notifikasi setelah 3 detik
+    setNotification("Wisata berhasil dihapus!");
     setTimeout(() => setNotification(null), 3000);
   };
 
   return (
     <div className={styles.dashboardContainer}>
-      <div className={styles.card}>
-        <h1 className={styles.dashboardTitle}>
-          Dashboard Admin - Wisata Sirah Kencong
-        </h1>
+      <h1 className={styles.dashboardTitle}>Tambah Data Paket Wisata</h1>
+      {notification && <p className={styles.notification}>{notification}</p>}
+      {error && <p className={styles.error}>{error}</p>}
+      <form onSubmit={handleAddWisata} className={styles.form}>
+        <input
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          placeholder="Nama Wisata"
+          className={styles.inputField}
+        />
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
+          placeholder="Deskripsi"
+          className={styles.inputField}
+        />
+        <input
+          name="price"
+          value={formData.price}
+          onChange={handleInputChange}
+          placeholder="Harga"
+          className={styles.inputField}
+        />
+        <button type="submit" className={styles.buttonPrimary}>Tambah Paket Wisata</button>
+      </form>
 
-        {notification && (
-          <div className={styles.notification}>{notification}</div>
-        )}
-
-        <div className={styles.formSection}>
-          <h2 className={styles.sectionTitle}>Tambah Data Wisata</h2>
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.inputGrid}>
-              <input
-                type="text"
-                name="title"
-                placeholder="Nama Wisata"
-                value={formData.title}
-                onChange={handleInputChange}
-                className={styles.inputField}
-                required
-              />
-              <input
-                type="text"
-                name="image"
-                placeholder="URL Gambar"
-                value={formData.image}
-                onChange={handleInputChange}
-                className={styles.inputField}
-                required
-              />
-              <input
-                type="number"
-                name="idWisata"
-                placeholder="ID Wisata"
-                value={formData.idWisata}
-                onChange={handleInputChange}
-                className={styles.inputField}
-                required
-              />
-            </div>
-            <textarea
-              name="description"
-              placeholder="Deskripsi"
-              value={formData.description}
-              onChange={handleInputChange}
-              className={styles.textArea}
-              required
-            />
-            <button
-              type="submit"
-              className={styles.buttonPrimary}
-            >
-              Tambah Wisata
-            </button>
-          </form>
-        </div>
-
-        <div className={styles.tableSection}>
-          <h2 className={styles.sectionTitle}>Daftar Wisata</h2>
-          <table className={styles.table}>
-            <thead>
-              <tr className={styles.tableHeader}>
-                <th>Nama</th>
-                <th>Deskripsi</th>
-                <th>ID Wisata</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {wisataList.map((wisata) => (
-                <tr key={wisata.id} className={styles.tableRow}>
-                  <td>{wisata.title}</td>
-                  <td className={styles.descriptionCell}>
-                    {wisata.description.length > 100
-                      ? `${wisata.description.substring(0, 100)}...`
-                      : wisata.description}
-                  </td>
-                  <td>{wisata.idWisata}</td>
-                  <td>
-                    <button
-                      onClick={() => handleDelete(wisata.id)}
-                      className={styles.buttonDanger}
-                    >
-                      Hapus
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <h2 className={styles.sectionTitle}>Daftar Paket Wisata</h2>
+      <table className={styles.table}>
+        <thead className={styles.tableHeader}>
+          <tr>
+            <th>Nama</th>
+            <th>Deskripsi</th>
+            <th>Harga</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {wisataList.map((wisata) => (
+            <tr key={wisata.id} className={styles.tableRow}>
+              <td>{wisata.name}</td>
+              <td>{wisata.description}</td>
+              <td>Rp {parseFloat(wisata.price).toLocaleString()}</td>
+              <td>
+                <button className={styles.buttonPrimary}>Checkout</button>
+                <button
+                  onClick={() => handleDeleteWisata(wisata.id)}
+                  className={styles.buttonDanger}
+                >
+                  Hapus
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
