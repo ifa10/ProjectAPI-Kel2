@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { paketWisata } from '../pemesanan'; // Assuming you'll move the data to a separate file
+import { paketWisata } from '../pemesananmember'; // Assuming you'll move the data to a separate file
 
 export default async function handler(
   req: NextApiRequest,
